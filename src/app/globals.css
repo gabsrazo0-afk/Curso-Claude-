@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* El tema se controla con data-theme en <html> (ver src/lib/theme.ts). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Tokens de diseño — Future Lab.
+ * Marca: violeta #7867FF y menta #35D6C3. Los tonos "-ink" y "-fill" son
+ * variantes ajustadas para que el texto cumpla WCAG AA en cada tema.
+ */
+:root,
+[data-theme="dark"] {
+  --bg: #11131c;
+  --surface: #181b27;
+  --surface-2: #1f2331;
+  --border: #2a2e3d;
+  --border-strong: #3a3f52;
+  --fg: #e8eaf2;
+  --fg-muted: #9aa0b4;
+
+  --primary: #7867ff;
+  --primary-fill: #5a48f0;
+  --primary-ink: #a99fff;
+  --primary-soft: rgb(120 103 255 / 0.14);
+
+  --accent: #35d6c3;
+  --accent-ink: #35d6c3;
+  --accent-soft: rgb(53 214 195 / 0.14);
+
+  --warning-ink: #f5c26b;
+  --danger-ink: #ff8f8f;
+  --danger-soft: rgb(255 120 120 / 0.12);
+
+  --code-bg: #0c0e15;
+  --code-fg: #d9dcf0;
+  --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 12px 32px -16px rgb(0 0 0 / 0.6);
+}
+
+[data-theme="light"] {
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --surface-2: #eef0f6;
+  --border: #dde0ea;
+  --border-strong: #c4c8d6;
+  --fg: #14161f;
+  --fg-muted: #5b6075;
+
+  --primary: #7867ff;
+  --primary-fill: #5a48f0;
+  --primary-ink: #4f3de0;
+  --primary-soft: rgb(120 103 255 / 0.12);
+
+  --accent: #0b8577;
+  --accent-ink: #0a7a6d;
+  --accent-soft: rgb(53 214 195 / 0.18);
+
+  --warning-ink: #8a5a00;
+  --danger-ink: #b42323;
+  --danger-soft: rgb(220 50 50 / 0.08);
+
+  --code-bg: #14161f;
+  --code-fg: #e8eaf2;
+  --shadow: 0 1px 2px rgb(20 22 31 / 0.04), 0 12px 32px -18px rgb(20 22 31 / 0.18);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-primary: var(--primary);
+  --color-primary-fill: var(--primary-fill);
+  --color-primary-ink: var(--primary-ink);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-warning-ink: var(--warning-ink);
+  --color-danger-ink: var(--danger-ink);
+  --color-danger-soft: var(--danger-soft);
+  --color-code-bg: var(--code-bg);
+  --color-code-fg: var(--code-fg);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --shadow-card: var(--shadow);
+  --radius-card: 1.25rem;
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Foco visible y consistente para navegación por teclado. */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+::selection {
+  background: var(--primary-soft);
+}
+
+/* Malla sutil y estática de fondo: aporta textura sin animación. */
+.lab-grid {
+  background-image:
+    radial-gradient(60rem 30rem at 85% -10%, var(--primary-soft), transparent 60%),
+    linear-gradient(to right, color-mix(in srgb, var(--border) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--border) 45%, transparent) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+  background-position: center, -1px -1px, -1px -1px;
+  mask-image: linear-gradient(to bottom, black, transparent 70%);
+}
+
+dialog::backdrop {
+  background: rgb(8 9 14 / 0.55);
+  backdrop-filter: blur(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
